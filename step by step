@@ -1,0 +1,72 @@
+Step 1: Add MySQL repository
+
+sudo dnf remove @mysql
+sudo dnf module reset mysql && sudo dnf module disable mysql
+
+sudo vi /etc/yum.repos.d/mysql-community.repo
+
+[mysql57-community]
+name=MySQL 5.7 Community Server
+baseurl=http://repo.mysql.com/yum/mysql-5.7-community/el/7/$basearch/
+enabled=1
+gpgcheck=0
+
+[mysql-connectors-community]
+name=MySQL Connectors Community
+baseurl=http://repo.mysql.com/yum/mysql-connectors-community/el/7/$basearch/
+enabled=1
+gpgcheck=0
+
+[mysql-tools-community]
+name=MySQL Tools Community
+baseurl=http://repo.mysql.com/yum/mysql-tools-community/el/7/$basearch/
+enabled=1
+gpgcheck=0
+
+Step 2: Install MySQL 5.7 on CentOS 8 / RHEL 8
+
+sudo dnf config-manager --enable mysql57-community
+
+sudo dnf install mysql-community-server
+
+Check package rpm details to confirm it is 5.7.
+rpm -qi mysql-community-server
+
+
+Step 3: Configure MySQL 5.7 on CentOS 8 / RHEL 8
+
+
+sudo systemctl enable --now mysqld.service
+
+
+sudo mysql_secure_installation
+
+Change the password for root ? ((Press y|Y for Yes, any other key for No) : Yes
+
+New password: 
+Re-enter new password: 
+
+Estimated strength of the password: 100 
+Do you wish to continue with the password provided?: Yes
+
+Remove anonymous users?: Yes
+Success.
+
+Disallow root login remotely? : Yes
+Success.
+
+Remove test database and access to it? : Yes
+ - Dropping test database...
+Success.
+ - Removing privileges on test database...
+Success.
+
+Reload privilege tables now? (Press y|Y for Yes) : Yes
+Success.
+
+All done!
+
+
+
+
+
